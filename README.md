@@ -2,7 +2,7 @@
 
 # 给微信添加聊天记录截图功能
 
-> 本插件使用 MonkeyDev 工具开发，使用这个工具前，需要配置 MonkeyDev 工具。
+> 本插件使用 MonkeyDev 工具开发，使用这个工具前，需要配置 MonkeyDev 工具。本插件的主要功能是帮你截取微信聊天记录为长图，可以打马赛克。
 
 ![](https://github.com/lefex/WeChatShot/blob/master/images/xiaoguo.gif?raw=true)
 
