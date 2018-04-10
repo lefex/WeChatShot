@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, WeChatSaveDataMaskType) {
     WeChatSaveDataMaskTypeNoSet,
     WeChatSaveDataMaskTypeNoMask,
     WeChatSaveDataMaskTypeMast,
+    WeChatSaveDataMaskTypePreview, // 预览
 };
 
 @interface WeChatSaveData : NSObject

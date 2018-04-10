@@ -7,6 +7,8 @@
 //
 
 #import "WeChatSaveData.h"
+#import "WeChatUser.h"
+#import "WeChatUser.h"
 
 @implementation WeChatSaveData
 
@@ -44,6 +46,11 @@
     } else if ([item.title isEqualToString:kScreenshotTitle]){
         [WeChatSaveData defaultSaveData].maskType = WeChatSaveDataMaskTypeNoMask;
         [self saveImageWithViewController:viewController];
+    } else if ([item.title isEqualToString:kScreenshotTitlePreview]){
+        [WeChatSaveData defaultSaveData].maskType = WeChatSaveDataMaskTypePreview;
+        MMTableView *tableView = [viewController valueForKeyPath:@"m_tableView"];
+        [tableView reloadData];
+        [WeChatUser resetIndex];
     } else {
         [WeChatSaveData defaultSaveData].maskType = WeChatSaveDataMaskTypeNoSet;
     }
@@ -59,12 +66,13 @@
             UIImage *reImage = [WeChatHeader addWatemarkTextWithImage:image text:kScreenshotLogoTitle];
             UIImageWriteToSavedPhotosAlbum(reImage, nil, nil, 0);
         }
+        [WeChatUser resetIndex];
     });
 }
 
 + (void)updateCellDataWithCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
-    if ([WeChatSaveData defaultSaveData].maskType == WeChatSaveDataMaskTypeMast) {
+    if ([WeChatSaveData defaultSaveData].maskType == WeChatSaveDataMaskTypeMast || [WeChatSaveData defaultSaveData].maskType == WeChatSaveDataMaskTypePreview) {
         NSArray *subviews = [cell.contentView subviews];
         FavRecordBaseNodeView *nodeView = [subviews lastObject];
         if ([NSStringFromClass([nodeView class]) hasSuffix:@"NodeView"]) {
@@ -73,19 +81,18 @@
                 CGRect tempFrame = nickNameLabel.frame;
                 tempFrame.size.width = 120;
                 nickNameLabel.frame = tempFrame;
-                NSString *nickName = nickNameLabel.text;
-                NSString *dictNickName = [[WeChatSaveData defaultSaveData].userNameDict objectForKey:nickName?:@""];
-                if (dictNickName) {
-                    nickNameLabel.text = dictNickName;
-                } else {
-                    NSString *tempName = [NSString stringWithFormat:@"TS_%@", @(indexPath.row)];
-                    [[WeChatSaveData defaultSaveData].userNameDict setObject:tempName forKey:nickName?:@""];
-                    nickNameLabel.text = tempName;
-                }
             }
-            UIImageView *imageView = [nodeView valueForKeyPath:@"m_headImg._headImageView"];
+            
+            MMHeadImageView *imageView = [nodeView valueForKeyPath:@"m_headImg"];
+            NSString *nickName = [imageView valueForKey:@"_nsUsrName"];
+            WeChatUser *aUser = [[WeChatSaveData defaultSaveData].userNameDict objectForKey:nickName?:@""];
+            if (!aUser) {
+                aUser = [WeChatUser user];
+                [[WeChatSaveData defaultSaveData].userNameDict setObject:aUser forKey:nickName?:@""];
+            }
+            nickNameLabel.text = aUser.nickname ?: @"";
             if (imageView) {
-                imageView.image = [UIImage imageNamed:@"teachset.jpg"];
+                [imageView updateUsrName:aUser.nickname withHeadImgUrl:aUser.icon];
             }
         }
     }
@@ -105,3 +112,4 @@
 }
 
 @end
+

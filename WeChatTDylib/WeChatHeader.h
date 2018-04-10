@@ -11,11 +11,17 @@
 
 static NSString * const kScreenshotTitle = @"截图";
 static NSString * const kScreenshotTitleMask = @"截图（马赛克）";
+static NSString * const kScreenshotTitlePreview = @"预览";
 static NSString * const kScreenshotLogoTitle = @"by公众号 知识小集";
 
 @interface WeChatHeader : NSObject
 + (UIImage *)captureScrollView:(UIScrollView *)view;
 + (UIImage *)addWatemarkTextWithImage:(UIImage *)image text:(NSString *)text;
+@end
+
+@interface MMHeadImageView : UIView
+- (void)updateUsrName:(id)arg1 withHeadImgUrl:(id)arg2;
+- (NSString *)getRealUserName:(id)arg1;
 @end
 
 @interface WCActionSheet: UIWindow

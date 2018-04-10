@@ -1,17 +1,18 @@
 //  weibo: http://weibo.com/xiaoqing28
 //  blog:  http://www.alonemonkey.com
 //
-//  WeChatTDylib.m
-//  WeChatTDylib
+//  ReverseDemoDylib.m
+//  ReverseDemoDylib
 //
-//  Created by Wang,Suyan on 2018/3/31.
+//  Created by Wang,Suyan on 2018/1/10.
 //  Copyright (c) 2018年 Wang,Suyan. All rights reserved.
 //
 
-#import "WeChatTDylib.h"
+#import "ReverseDemoDylib.h"
 #import <CaptainHook/CaptainHook.h>
 #import <UIKit/UIKit.h>
 #import <Cycript/Cycript.h>
+#import "ANYMethodLog.h"
 #import "WeChatHeader.h"
 #import "WeChatSaveData.h"
 
@@ -29,7 +30,7 @@ static __attribute__((constructor)) void entry(){
 CHDeclareClass(WCActionSheet)
 CHOptimizedMethod0(self, NSArray *, WCActionSheet, buttonTitleList){
     NSArray *titles = CHSuper0(WCActionSheet, buttonTitleList);
-//    NSLog(@"WCActionSheet titles: %@, class: %@", titles, NSStringFromClass([[titles firstObject] class]));
+    //    NSLog(@"WCActionSheet titles: %@, class: %@", titles, NSStringFromClass([[titles firstObject] class]));
     return titles;
 }
 
@@ -38,12 +39,13 @@ CHOptimizedMethod1(self, void, WCActionSheet, showInView, UIView *, view){
         [self addButtonWithTitle:@""];
         [self addButtonWithTitle:kScreenshotTitle];
         [self addButtonWithTitle:kScreenshotTitleMask];
+        [self addButtonWithTitle:kScreenshotTitlePreview];
         
         // 方法二
-//        WCActionSheetItem *shotItem = [[objc_getClass("WCActionSheetItem") alloc] initWithTitle:kScreenshotTitle];
-//        WCActionSheetItem *shotItem2 = [[objc_getClass("WCActionSheetItem") alloc] initWithTitle:kScreenshotTitleMask];
-//        [self.buttonTitleList addObject:shotItem];
-//        [self.buttonTitleList addObject:shotItem2];
+        //        WCActionSheetItem *shotItem = [[objc_getClass("WCActionSheetItem") alloc] initWithTitle:kScreenshotTitle];
+        //        WCActionSheetItem *shotItem2 = [[objc_getClass("WCActionSheetItem") alloc] initWithTitle:kScreenshotTitleMask];
+        //        [self.buttonTitleList addObject:shotItem];
+        //        [self.buttonTitleList addObject:shotItem2];
     }
     CHSuper1(WCActionSheet, showInView, view);
 }
@@ -63,7 +65,7 @@ CHOptimizedMethod0(self, double, WCActionSheetItem, getItemHeight){
 CHDeclareClass(FavRecordDetailViewController)
 CHOptimizedMethod2(self, void, FavRecordDetailViewController, actionSheet, WCActionSheet*, sheet, clickedButtonAtIndex, int, index){
     NSLog(@"Hook clickedButtonAtIndex");
-
+    
     CHSuper2(FavRecordDetailViewController, actionSheet, sheet, clickedButtonAtIndex, index);
     
     [WeChatCapture saveCaptureImageWithSheet:sheet index:index viewController:self];
@@ -102,17 +104,17 @@ CHOptimizedMethod1(self, void, MsgRecordDetailViewController, viewWillDisappear,
 
 CHOptimizedMethod2(self, void, MsgRecordDetailViewController, actionSheet, WCActionSheet*, sheet, clickedButtonAtIndex, int, index){
     NSLog(@"Hook clickedButtonAtIndex");
-
+    
     CHSuper2(MsgRecordDetailViewController, actionSheet, sheet, clickedButtonAtIndex, index);
-
+    
     [WeChatCapture saveCaptureImageWithSheet:sheet index:index viewController:self];
 }
 
 CHOptimizedMethod2(self, UITableViewCell *, MsgRecordDetailViewController, tableView, MMTableView *, tableViewArg, cellForRowAtIndexPath, NSIndexPath, *indexPath){
-
+    
     UITableViewCell *cell = CHSuper2(MsgRecordDetailViewController, tableView, tableViewArg, cellForRowAtIndexPath, indexPath);
     [WeChatCapture updateCellDataWithCell:cell indexPath:indexPath];
-
+    
     return cell;
 }
 
