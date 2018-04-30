@@ -1,5 +1,7 @@
 # 开发APP的另一扇窗--逆向
 
+逆向是打开第三方 APP 的一扇窗，本项目主要总结利用逆向做的一些有意义的事情。
+
 ### 给微信添加聊天记录截图功能
 
 > 有时候，知识小集群里讨论的技术问题，比较有价值，我们会把有价值的内容整理出来供大家查阅。但为了保护群友隐私，需要把昵称和头像都打码，如果碰到几百条聊天记录，这样做简直要吐血。而且也不能截一张长图，只能一张一张截取，然后拼接起来。群聊记录只能在微信内分享，这也限制了传播的渠道。为了提高小集成员工作效率，想着能不能给微信做个插件，解决这些问题。我们一直在追求如何更有效率做我们的工作，比如使用脚本自动整理每周小集内容，使用微信小程序给读者更好阅读体验。（呀，还有脚本，如果你还不知道，那肯定没有点 star 吧，[传送门](https://github.com/iOS-Tips/iOS-tech-set/tree/master/script)）
@@ -11,7 +13,7 @@
 
 ### 查看第三方APP使用的第三方库
 
-有时候想研究某个竞品APP时，需要了解其使用的第三方库，使用 class-dump 导出的头文件非常多，刚靠肉眼查看时，耗时耗力。为了解决这个痛点，便发明了这个工具。下面是获取某个第三方 APP 使用的第三方库，可以查看 pod 库的 star 数，源地址。
+> 有时候想研究某个竞品APP时，需要了解其使用的第三方库，使用 class-dump 导出的头文件非常多，刚靠肉眼查看时，耗时耗力。为了解决这个痛点，便发明了这个工具。下面是获取某个第三方 APP 使用的第三方库，可以查看 pod 库的 star 数，源地址。
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking.git) - (30982)
 - [Masonry](https://github.com/cloudkite/Masonry.git) - (16318)
@@ -50,13 +52,13 @@
 - [Bugtags](https://github.com/bugtags/Bugtags-iOS.git) - (88)
 - [XMPlayer](https://github.com/inmine/XMPlayer.git) - (38)
 - [UIActionSheet-Blocks](https://github.com/freak4pc/UIActionSheet-Blocks.git) - (19)
-- [JKAlert](https://github.com/shaojiankui/JKAlert.git) - (6)
-- [TFHpple](https://github.com/tpctt/TFHpple.git) - (3)
-- [XMImagePickerController](https://github.com/Mazy-ma/XMImagePickerController.git) - (2)
-- [M3U8Parser](https://github.com/Jignesh1805/M3U8Parser.git) - (1)
 
 **缺点**
 
 - 只能查看 cocoapod 中的第三方库，也就是说如果某个第三方库不支持 pod，这个工具不能查到；
 - 某个第三方库的名字和项目中的名字一样，可能会把不是第三方库的识别为第三方库；
 - 完善 `source_file` 提高识别率
+
+### 分类第三方 APP 头文件(待完成)
+
+> 利用 class-dump 导出的头文件，根据前缀整理成不同的文件夹。
