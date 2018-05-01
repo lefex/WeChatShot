@@ -2,7 +2,7 @@
 
 逆向是打开第三方 APP 的一扇窗，本项目主要总结利用逆向做的一些有意义的事情。
 
-### 给微信添加聊天记录截图功能
+### 一、给微信添加聊天记录截图功能
 
 > 有时候，知识小集群里讨论的技术问题，比较有价值，我们会把有价值的内容整理出来供大家查阅。但为了保护群友隐私，需要把昵称和头像都打码，如果碰到几百条聊天记录，这样做简直要吐血。而且也不能截一张长图，只能一张一张截取，然后拼接起来。群聊记录只能在微信内分享，这也限制了传播的渠道。为了提高小集成员工作效率，想着能不能给微信做个插件，解决这些问题。我们一直在追求如何更有效率做我们的工作，比如使用脚本自动整理每周小集内容，使用微信小程序给读者更好阅读体验。（呀，还有脚本，如果你还不知道，那肯定没有点 star 吧，[传送门](https://github.com/iOS-Tips/iOS-tech-set/tree/master/script)）
 
@@ -11,7 +11,7 @@
 [查看原理](https://github.com/lefex/WeChatShot/wiki/%E7%BB%99%E5%BE%AE%E4%BF%A1%E6%B7%BB%E5%8A%A0%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E6%88%AA%E5%9B%BE%E5%8A%9F%E8%83%BD)
 
 
-### 查看第三方APP使用的第三方库
+### 二、查看第三方APP使用的第三方库
 
 > 有时候想研究某个竞品APP时，需要了解其使用的第三方库，使用 class-dump 导出的头文件非常多，刚靠肉眼查看时，耗时耗力。为了解决这个痛点，便发明了这个工具。下面是获取某个第三方 APP 使用的第三方库，可以查看 pod 库的 star 数，源地址。
 
@@ -32,33 +32,24 @@
 - [YapDatabase](https://github.com/yaptv/YapDatabase.git) - (3046)
 - [hpple](https://github.com/topfunky/hpple.git) - (2534)
 - [TYAttributedLabel](https://github.com/12207480/TYAttributedLabel.git) - (2366)
-- [MarqueeLabel](https://github.com/cbpowell/MarqueeLabel.git) - (2274)
-- [HPGrowingTextView](https://github.com/HansPinckaers/GrowingTextView.git) - (2052)
-- [OpenUDID](https://github.com/ylechelle/OpenUDID.git) - (1909)
-- [MBProgressHUD](https://github.com/matej/MBProgressHUD.git) - (1789)
-- [YYCache](https://github.com/ibireme/YYCache.git) - (1734)
-- [QBImagePickerController](https://github.com/questbeat/QBImagePickerController.git) - (1687)
-- [Watchdog](https://github.com/wojteklukaszuk/Watchdog.git) - (1505)
-- [WeiboSDK](https://github.com/sinaweibosdk/weibo_ios_sdk.git) - (1257)
-- [UIAlertView-Blocks](https://github.com/jivadevoe/UIAlertView-Blocks.git) - (907)
-- [FCFileManager](https://github.com/fabiocaccamo/FCFileManager.git) - (780)
-- [ZipArchive](https://github.com/mattconnolly/ZipArchive.git) - (779)
-- [SloppySwiper](https://github.com/fastred/SloppySwiper.git) - (744)
-- [YBPopupMenu](https://github.com/lyb5834/YBPopupMenu.git) - (491)
-- [RMUniversalAlert](https://github.com/ryanmaxwell/RMUniversalAlert.git) - (267)
-- [LMMediaPlayer](https://github.com/0x0c/LMMediaPlayer.git) - (181)
-- [XMSegmentedControl](https://github.com/xaviermerino/XMSegmentedControl.git) - (145)
-- [AFImageDownloader](https://github.com/ashfurrow/AFImageDownloader.git) - (89)
-- [Bugtags](https://github.com/bugtags/Bugtags-iOS.git) - (88)
-- [XMPlayer](https://github.com/inmine/XMPlayer.git) - (38)
-- [UIActionSheet-Blocks](https://github.com/freak4pc/UIActionSheet-Blocks.git) - (19)
 
-**缺点**
+#### 使用
 
-- 只能查看 cocoapod 中的第三方库，也就是说如果某个第三方库不支持 pod，这个工具不能查到；
-- 某个第三方库的名字和项目中的名字一样，可能会把不是第三方库的识别为第三方库；
-- 完善 `source_file` 提高识别率
+本工具基于 python 写的，在[这里](https://github.com/lefex/WeChatShot/podlib/source)可以找到源码。下载源码后修改 `main.py` 文件的 `IPA_HEADER_PATH` 为 class-dump 导出的头文件目录。执行 `python main.py`
 
-### 分类第三方 APP 头文件(待完成)
+```
+IPA_HEADER_PATH = '/Users/lefex/Desktop/header/xxx'
+```
+
+
+### 三、分类第三方 APP 头文件
 
 > 利用 class-dump 导出的头文件，根据前缀整理成不同的文件夹。
+ 
+#### 使用
+
+本工具基于 python 写的，在[这里](https://github.com/lefex/WeChatShot/podlib/source)可以找到源码。下载源码后修改 `file_catagory.py ` 文件的 `IPA_HEADER_PATH` 为 class-dump 导出的头文件目录。执行 `python file_catagory.py `
+
+```
+IPA_HEADER_PATH = '/Users/lefex/Desktop/header/xxx'
+```
